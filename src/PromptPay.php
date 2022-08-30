@@ -156,7 +156,7 @@ class PromptPay {
         return strtoupper(bin2hex($checksum));
     }
     
-    protected static function getPngWriter(int $width = 500) {
+    protected static function getPngWriter(int $width) {
         $renderer = new Png();
         $renderer->setHeight($width);
         $renderer->setWidth($width);
@@ -165,12 +165,12 @@ class PromptPay {
         return new \BaconQrCode\Writer($renderer);
     }
     
-    public function generateQrCodeAsFile($savePath) {
-        self::getPngWriter()->writeFile($this->build(), $savePath);
+    public function toPngFile($savePath, int $width = 500) {
+        self::getPngWriter($width)->writeFile($this->build(), $savePath);
     }
     
-    public function generateQrCodeAsString() {
-        self::getPngWriter()->writeString($this->build());
+    public function toPngString(int $width = 500) {
+        return self::getPngWriter($width)->writeString($this->build());
     }
     
 }
