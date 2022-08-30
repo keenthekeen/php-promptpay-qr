@@ -36,6 +36,8 @@ class PromptPay {
     protected $targetType;
     protected $target;
     protected $amount;
+    protected $ref1;
+    protected $ref2;
     
     public static function builder(): self {
         return new self();
@@ -69,6 +71,18 @@ class PromptPay {
         return $this;
     }
     
+    public function setRef1($ref = NULL): self {
+        $this->ref1 = $ref;
+        
+        return $this;
+    }
+    
+    public function setRef2($ref = NULL): self {
+        $this->ref2 = $ref;
+        
+        return $this;
+    }
+    
     
     /**
      * @throws \Exception
@@ -77,13 +91,21 @@ class PromptPay {
         if (empty($this->target)) {
             throw new \Exception('Transfer target is required.');
         }
+        $merchantData = ($this->aid == self::AID_BILL_PAYMENT_DOMESTIC) ? [
+            self::f(self::MERCHANT_INFORMATION_TEMPLATE_ID_GUID, self::AID_BILL_PAYMENT_DOMESTIC),
+            self::f('01', $this->target),
+            self::f('02', $this->ref1),
+        ] : [
+            self::f(self::MERCHANT_INFORMATION_TEMPLATE_ID_GUID, $this->aid ?? self::AID_CREDIT_TRANSFER),
+            self::f($this->targetType, self::formatTarget($this->target))
+        ];
+        if ($this->aid == self::AID_BILL_PAYMENT_DOMESTIC and $this->ref2 !== NULL) {
+            $merchantData[] = self::f('03', $this->ref2);
+        }
         $data = [
             self::f(self::ID_PAYLOAD_FORMAT, self::PAYLOAD_FORMAT_EMV_QRCPS_MERCHANT_PRESENTED_MODE),
             self::f(self::ID_POI_METHOD, $this->pointOfInitiationMethod ?? ($this->amount ? self::POI_METHOD_DYNAMIC : self::POI_METHOD_STATIC)),
-            self::f(self::ID_MERCHANT_INFORMATION_BOT, $this->serialize([
-                self::f(self::MERCHANT_INFORMATION_TEMPLATE_ID_GUID, $this->aid ?? self::AID_CREDIT_TRANSFER),
-                self::f($this->targetType, self::formatTarget($this->target))
-            ])),
+            self::f(self::ID_MERCHANT_INFORMATION_BOT, $this->serialize($merchantData)),
             self::f(self::ID_COUNTRY_CODE, self::COUNTRY_CODE_TH),
             self::f(self::ID_TRANSACTION_CURRENCY, self::TRANSACTION_CURRENCY_THB),
         ];
