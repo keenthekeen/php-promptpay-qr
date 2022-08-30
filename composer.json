@@ -8,13 +8,13 @@
   "require": {
     "php": ">=7.1",
     "bacon/bacon-qr-code": "^2.0",
-    "kittinan/php-crc": "1.0.0",
-    "ext-curl": "*"
+    "kittinan/php-crc": "1.0.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5",
     "phpunit/php-timer": "^5.0",
-    "php-coveralls/php-coveralls": "^2.5"
+    "php-coveralls/php-coveralls": "^2.5",
+    "ext-curl": "*"
   },
   "autoload": {
     "psr-4": {

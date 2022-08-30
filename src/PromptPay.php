@@ -2,7 +2,7 @@
 
 namespace KS;
 
-use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
@@ -20,7 +20,8 @@ class PromptPay {
     
     protected const ID_PAYLOAD_FORMAT = '00';
     protected const ID_POI_METHOD = '01';
-    protected const ID_MERCHANT_INFORMATION_BOT = '29';
+    protected const ID_MERCHANT_CREDIT = '29';
+    protected const ID_MERCHANT_BILL = '30';
     protected const ID_TRANSACTION_CURRENCY = '53';
     protected const ID_TRANSACTION_AMOUNT = '54';
     protected const ID_COUNTRY_CODE = '58';
@@ -108,7 +109,7 @@ class PromptPay {
         $data = [
             self::f(self::ID_PAYLOAD_FORMAT, self::PAYLOAD_FORMAT_EMV_QRCPS_MERCHANT_PRESENTED_MODE),
             self::f(self::ID_POI_METHOD, $this->pointOfInitiationMethod ?? ($this->amount ? self::POI_METHOD_DYNAMIC : self::POI_METHOD_STATIC)),
-            self::f(self::ID_MERCHANT_INFORMATION_BOT, $this->serialize($merchantData)),
+            self::f(($this->aid == self::AID_BILL_PAYMENT_DOMESTIC) ? self::ID_MERCHANT_BILL : self::ID_MERCHANT_CREDIT, $this->serialize($merchantData)),
             self::f(self::ID_COUNTRY_CODE, self::COUNTRY_CODE_TH),
             self::f(self::ID_TRANSACTION_CURRENCY, self::TRANSACTION_CURRENCY_THB),
         ];
@@ -160,16 +161,16 @@ class PromptPay {
     }
     
     protected static function getWriter(int $width): Writer {
-        $renderer = new ImageRenderer(new RendererStyle($width), new ImagickImageBackEnd());
+        $renderer = new ImageRenderer(new RendererStyle($width), new SvgImageBackEnd());
         
         return new Writer($renderer);
     }
     
-    public function toPngFile($savePath, int $width = 500) {
+    public function toSvgFile($savePath, int $width = 500) {
         self::getWriter($width)->writeFile($this->build(), $savePath);
     }
     
-    public function toPngString(int $width = 500) {
+    public function toSvgString(int $width = 500) {
         return self::getWriter($width)->writeString($this->build());
     }
     
