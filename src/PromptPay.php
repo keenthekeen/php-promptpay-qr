@@ -2,7 +2,10 @@
 
 namespace KS;
 
-use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
 use mermshaus\CRC\CRC16CCITT;
 
 /**
@@ -156,21 +159,18 @@ class PromptPay {
         return strtoupper(bin2hex($checksum));
     }
     
-    protected static function getPngWriter(int $width) {
-        $renderer = new Png();
-        $renderer->setHeight($width);
-        $renderer->setWidth($width);
-        $renderer->setMargin(0);
+    protected static function getWriter(int $width): Writer {
+        $renderer = new ImageRenderer(new RendererStyle($width), new ImagickImageBackEnd());
         
-        return new \BaconQrCode\Writer($renderer);
+        return new Writer($renderer);
     }
     
     public function toPngFile($savePath, int $width = 500) {
-        self::getPngWriter($width)->writeFile($this->build(), $savePath);
+        self::getWriter($width)->writeFile($this->build(), $savePath);
     }
     
     public function toPngString(int $width = 500) {
-        return self::getPngWriter($width)->writeString($this->build());
+        return self::getWriter($width)->writeString($this->build());
     }
     
 }
