@@ -1,11 +1,8 @@
 language: php
 php:
+  - 8.1
+  - 8.0
   - 7.1
-  - 7.0
-  - 5.6
-  - 5.5
-  - 5.4
-  - hhvm
 
 before_script:
  - composer install
@@ -15,6 +12,8 @@ script:
   - vendor/bin/phpunit -c ./phpunit.xml --coverage-clover build/logs/clover.xml ./tests
 
 after_script:
- - php vendor/bin/coveralls -v
  - wget https://scrutinizer-ci.com/ocular.phar
  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+
+ after_success:
+  - travis_retry php vendor/bin/php-coveralls -v
