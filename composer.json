@@ -1,24 +1,35 @@
 {
-  "name": "kittinan/php-promptpay-qr",
+  "name": "keenthekeen/php-promptpay-qr",
   "description": "PHP Library to generate QR Code payload for PromptPay",
   "keywords": [
     "Promptpay"
   ],
   "license": "MIT",
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.4",
     "bacon/bacon-qr-code": "^2.0",
     "kittinan/php-crc": "1.0.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.5",
-    "phpunit/php-timer": "^5.0",
     "php-coveralls/php-coveralls": "^2.5",
-    "ext-curl": "*"
+    "pestphp/pest": "^1.22",
+    "phpstan/phpstan": "^1.8",
+    "laravel/pint": "^1.2"
   },
   "autoload": {
     "psr-4": {
-      "KS\\": "src"
+      "PromptPayQR\\": "src"
     }
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/pest --coverage-clover=coverage.xml",
+    "test-coverage-upload": "vendor/bin/php-coveralls -v",
+    "phpstan": "vendor/bin/phpstan analyse src tests --level=max"
   }
 }

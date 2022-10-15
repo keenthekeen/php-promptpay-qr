@@ -1,61 +1,43 @@
 # php-promptpay-qr
-[![Build Status](https://travis-ci.org/kittinan/php-promptpay-qr.svg?branch=master)](https://travis-ci.org/kittinan/php-promptpay-qr)
-[![Code Coverage](https://scrutinizer-ci.com/g/kittinan/php-promptpay-qr/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/kittinan/php-promptpay-qr/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kittinan/php-promptpay-qr/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kittinan/php-promptpay-qr/?branch=master)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/keenthekeen/php-promptpay-qr.svg?style=flat-square)](https://packagist.org/packages/keenthekeen/php-promptpay-qr)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/keenthekeen/php-promptpay-qr/run-tests?label=tests)](https://github.com/keenthekeen/php-promptpay-qr/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/keenthekeen/php-promptpay-qr/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/keenthekeen/php-promptpay-qr/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-PHP Library to generate QR Code payload for PromptPay inspired from [dtinth/promptpay-qr](https://github.com/dtinth/promptpay-qr)
+PHP Library to generate QR Code payload for PromptPay, a Thai QR Code Standard for Payment Transactions
 
-** NEED UPDATE **, inspired by https://github.com/pheerathach/promptpay
+inspired by [dtinth/promptpay-qr](https://github.com/dtinth/promptpay-qr) and [pheerathach/promptpay](https://github.com/pheerathach/promptpay)
 
-## Requirement
-- PHP 5.4+
-- [GD Extension](http://php.net/manual/en/book.image.php) (For Generate QR Code)
+adapted from [kittinan/php-promptpay-qr](https://github.com/kittinan/php-promptpay-qr)
 
-## Composer
-This package available on [Packagist](https://packagist.org/packages/kittinan/php-promptpay-qr), Install the latest version with composer 
+## Installation
 
-```
-composer require kittinan/php-promptpay-qr
+You can install the package via composer:
+
+```bash
+composer require keenthekeen/php-promptpay-qr
 ```
 
 ## Usage
 
 ```php
-$pp = new \KS\PromptPay();
+$pp = new \PromptPayQR\Generator();
 
-//Generate PromptPay Payload
-$target = '0899999999';
-echo $pp->generatePayload($target); 
-//00020101021129370016A000000677010111011300668999999995802TH53037646304FE29
+// Generate PromptPay Payload
+Builder::staticMerchantPresentedQR('0899999999')->build()
+// 00020101021129370016A000000677010111011300668999999995802TH53037646304FE29
 
-//Generate PromptPay Payload With Amount
-$target = '089-999-9999';
-$amount = 420;
-echo $pp->generatePayload($target, $amount);
-//00020101021229370016A000000677010111011300668999999995802TH53037645406420.006304CF9E
+// Generate PromptPay Payload With Amount
+Builder::staticMerchantPresentedQR('089-999-9999')->setAmount(420)->build()
+// 00020101021229370016A000000677010111011300668999999995802TH53037645406420.006304CF9E
 
-//Generate QR Code PNG file
-$target = '1-2345-67890-12-3';
-$savePath = '/tmp/qrcode.png';
-$pp->generateQrCode($savePath, $target);
+// Generate QR Code SVG string (to be return as HTTP response with header Content-Type: image/svg+xml)
+Builder::staticMerchantPresentedQR('1-2345-67890-12-3')->toSvgString()
 
-//Generate QR Code With Amount
-$amount = 420;
-$pp->generateQrCode($savePath, $target, $amount);
-
-//Set QR Code Size Pixel
-$width = 1000;
-$pp->generateQrCode($savePath, $target, $amount, $width);
+// Generate QR Code SVG file
+Builder::staticMerchantPresentedQR('1-2345-67890-12-3')->toSvgFile($path)
 ```
 
-## Sample Generated PromptPay QR Code
-<p align="center">
-  <img src="images/qrcode.png" width="300" />
-</p>
-
-## Contributing
-Feel free to contribute on this project, I will be happy to work with you.
-
 ## License
-The MIT License (MIT)
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
