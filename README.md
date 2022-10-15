@@ -1,7 +1,7 @@
 # php-promptpay-qr
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/keenthekeen/php-promptpay-qr.svg?style=flat-square)](https://packagist.org/packages/keenthekeen/php-promptpay-qr)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/keenthekeen/php-promptpay-qr/run-tests?label=tests)](https://github.com/keenthekeen/php-promptpay-qr/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/keenthekeen/php-promptpay-qr/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/keenthekeen/php-promptpay-qr/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/keenthekeen/php-promptpay-qr/run-tests?label=tests)](https://github.com/keenthekeen/php-promptpay-qr/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/keenthekeen/php-promptpay-qr/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/keenthekeen/php-promptpay-qr/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 PHP Library to generate QR Code payload for PromptPay, a Thai QR Code Standard for Payment Transactions
