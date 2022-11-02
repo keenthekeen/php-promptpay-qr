@@ -22,7 +22,7 @@ composer require keenthekeen/php-promptpay-qr
 ## Usage
 
 ```php
-$pp = new \PromptPayQR\Generator();
+use PromptPayQR\Builder;
 
 // Generate PromptPay Payload
 Builder::staticMerchantPresentedQR('0899999999')->build();
