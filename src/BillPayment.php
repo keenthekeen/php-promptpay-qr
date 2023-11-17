@@ -31,7 +31,7 @@ class BillPayment extends Generator
             Helper::f(self::BILL_PAYMENT_BILLER_ID, Helper::formatTarget($billerId)),
             Helper::f(self::BILL_PAYMENT_REF_1, $ref1),
         ];
-        if ($ref2) {
+        if ($ref2 !== null) {
             $this->target[] = Helper::f(self::BILL_PAYMENT_REF_2, $ref2);
         }
 

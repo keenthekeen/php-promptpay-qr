@@ -101,8 +101,8 @@ class Generator
             Helper::f(self::ID_PAYLOAD_FORMAT, self::PAYLOAD_FORMAT_EMV_QRCPS_MERCHANT_PRESENTED_MODE),
             Helper::f(self::ID_POI_METHOD, $this->pointOfInitiationMethod),
             Helper::f($this->merchantType, Helper::serialize($this->target)),
-            Helper::f(self::ID_COUNTRY_CODE, self::COUNTRY_CODE_TH),
             Helper::f(self::ID_TRANSACTION_CURRENCY, self::TRANSACTION_CURRENCY_THB),
+            Helper::f(self::ID_COUNTRY_CODE, self::COUNTRY_CODE_TH),
         ];
         if (! empty($this->amount)) {
             // Caution: amount 0.00 will be treated as static QR
