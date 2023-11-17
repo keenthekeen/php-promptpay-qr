@@ -24,7 +24,7 @@ class BillPayment extends Generator
         return $this;
     }
 
-    public function setBillerIdentifier(string $billerId, string $ref1, ?string $ref2 = null): BillPayment
+    public function setBillerIdentifier(string $billerId, string $ref1, string $ref2 = null): BillPayment
     {
         $this->target = [
             Helper::f(self::MERCHANT_INFORMATION_TEMPLATE_ID_GUID, $this->aid),

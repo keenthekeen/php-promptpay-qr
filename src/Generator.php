@@ -79,7 +79,7 @@ class Generator
         $this->merchantType = $merchantType;
     }
 
-    public function setAmount(?float $amount = null): self
+    public function setAmount(float $amount = null): self
     {
         $this->amount = $amount;
 

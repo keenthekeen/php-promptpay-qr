@@ -29,7 +29,7 @@ class CreditTransfer extends Generator
     /**
      * @throws Exception
      */
-    public function setMerchantIdentifier(string $identifier, ?string $type = null): CreditTransfer
+    public function setMerchantIdentifier(string $identifier, string $type = null): CreditTransfer
     {
         if ($type == null) {
             $idLength = strlen(Helper::sanitizeTarget($identifier));
