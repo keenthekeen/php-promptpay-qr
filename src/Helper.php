@@ -39,7 +39,7 @@ class Helper
 
     public static function crc16(string $data): string
     {
-        $crc16 = new CRC16CCITT();
+        $crc16 = new CRC16CCITT;
         $crc16->update($data);
         $checksum = $crc16->finish();
 

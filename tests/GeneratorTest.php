@@ -44,15 +44,15 @@ test('Build works', function () {
         ->toEqual('00020101021129370016A0000006770101110113006600000000053037645802TH630456EA');
     expect(Builder::staticMerchantPresentedQR('1234567890123')->build())
         ->toEqual('00020101021129370016A0000006770101110213123456789012353037645802TH630433FC');
-    expect(Builder::staticMerchantPresentedQR('089-123-4567')->setAmount('13371337.75')->build())
+    expect(Builder::staticMerchantPresentedQR('089-123-4567')->setAmount(13371337.75)->build())
         ->toEqual('00020101021129370016A0000006770101110113006689123456753037645802TH541113371337.756304C129');
-    expect(Builder::dynamicQR()->creditTransfer()->setMerchantIdentifier('089-123-4567')->setAmount('13371337.75')->build())
+    expect(Builder::dynamicQR()->creditTransfer()->setMerchantIdentifier('089-123-4567')->setAmount(13371337.75)->build())
         ->toEqual('00020101021229370016A0000006770101110113006689123456753037645802TH541113371337.756304C21C');
     expect(Builder::dynamicQR()->creditTransfer()->setMerchantIdentifier('1234567890123')->setAmount(420)->build())
         ->toEqual('00020101021229370016A0000006770101110213123456789012353037645802TH5406420.00630415D2');
     expect(Builder::staticMerchantPresentedQR('004999000288505')->build()) // K PLUS ID
         ->toEqual('00020101021129390016A000000677010111031500499900028850553037645802TH6304CA9D');
-    expect(Builder::dynamicQR()->creditTransfer()->setMerchantIdentifier('004999000288505')->setAmount('100.25')->build()) // K PLUS ID
+    expect(Builder::dynamicQR()->creditTransfer()->setMerchantIdentifier('004999000288505')->setAmount(100.25)->build()) // K PLUS ID
         ->toEqual('00020101021229390016A000000677010111031500499900028850553037645802TH5406100.2563049C33');
     expect(Builder::staticMerchantPresentedQR('004000006579718')->build()) // K PLUS Shop
         ->toEqual('00020101021129390016A000000677010111031500400000657971853037645802TH63042409');
@@ -62,5 +62,24 @@ test('Build works', function () {
 
 test('toSvgString works', function () {
     expect(Builder::dynamicQR()->creditTransfer()->setMerchantIdentifier('004000006579718')->setAmount(200.50)->toSvgString())
-        ->toBeString();
+        ->toBeString()
+        ->toContain('<svg');
+});
+
+test('toSvgFile works', function () {
+    $path = tempnam(sys_get_temp_dir(), 'promptpay-qr');
+    Builder::staticMerchantPresentedQR('0899999999')->toSvgFile($path);
+    expect(file_get_contents($path))
+        ->toContain('<svg');
+    unlink($path);
+});
+
+test('Bill payment build works', function () {
+    expect(Builder::staticQR()->billPayment()->setBillerIdentifier('123456789012345', '1234')->build())
+        ->toStartWith('000201010211')
+        ->toContain('0016A000000677010112')
+        ->toContain('02041234');
+    expect(Builder::staticQR()->billPayment()->crossBorder()->setBillerIdentifier('123456789012345', '1234', '5678')->build())
+        ->toContain('0016A000000677012006')
+        ->toContain('03045678');
 });
