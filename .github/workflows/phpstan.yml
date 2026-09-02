@@ -5,22 +5,32 @@ on:
     paths:
       - '**.php'
       - 'phpstan.neon.dist'
+      - '.github/workflows/phpstan.yml'
+  pull_request:
+    paths:
+      - '**.php'
+      - 'phpstan.neon.dist'
+      - '.github/workflows/phpstan.yml'
+
+permissions:
+  contents: read
 
 jobs:
   phpstan:
     name: phpstan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v5.1.0
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@2.37.2
         with:
-          php-version: '8.1'
+          php-version: '8.3'
           coverage: none
 
       - name: Install composer dependencies
-        uses: ramsey/composer-install@v1
+        run: composer update --prefer-dist --no-interaction
 
       - name: Run PHPStan
-        run: ./vendor/bin/phpstan analyze src --error-format=github
+        run: ./vendor/bin/phpstan analyse --error-format=github
