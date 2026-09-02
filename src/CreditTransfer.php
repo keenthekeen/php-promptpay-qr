@@ -58,21 +58,21 @@ class CreditTransfer extends Generator
 
     public function phoneNumber(string $phoneNumber): CreditTransfer
     {
-        $this->setMerchantIdentifier(self::CREDIT_TRANSFER_MERCHANT_TYPE_PHONE_NUMBER, $phoneNumber);
+        $this->setMerchantIdentifier($phoneNumber, self::CREDIT_TRANSFER_MERCHANT_TYPE_PHONE_NUMBER);
 
         return $this;
     }
 
     public function nationalId(string $nationalId): CreditTransfer
     {
-        $this->setMerchantIdentifier(self::CREDIT_TRANSFER_MERCHANT_TYPE_NATIONAL_ID, $nationalId);
+        $this->setMerchantIdentifier($nationalId, self::CREDIT_TRANSFER_MERCHANT_TYPE_NATIONAL_ID);
 
         return $this;
     }
 
     public function eWallet(string $eWalletId): CreditTransfer
     {
-        $this->setMerchantIdentifier(self::CREDIT_TRANSFER_MERCHANT_TYPE_EWALLET_ID, $eWalletId);
+        $this->setMerchantIdentifier($eWalletId, self::CREDIT_TRANSFER_MERCHANT_TYPE_EWALLET_ID);
 
         return $this;
     }

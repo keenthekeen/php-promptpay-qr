@@ -60,6 +60,17 @@ test('Build works', function () {
         ->toEqual('00020101021229390016A000000677010111031500400000657971853037645802TH5406200.506304209E');
 });
 
+test('Typed target shorthands work', function () {
+    expect(Builder::staticQR()->creditTransfer()->phoneNumber('0899999999')->build())
+        ->toEqual(Builder::staticMerchantPresentedQR('0899999999')->build());
+    expect(Builder::staticQR()->creditTransfer()->nationalId('1234567890123')->build())
+        ->toEqual(Builder::staticMerchantPresentedQR('1234567890123')->build());
+    expect(Builder::staticQR()->creditTransfer()->eWallet('004999000288505')->build())
+        ->toEqual(Builder::staticMerchantPresentedQR('004999000288505')->build());
+    expect(Builder::dynamicQR()->creditTransfer()->phoneNumber('083-888-3333')->setAmount(420)->build())
+        ->toEqual('00020101021229370016A0000006770101110113006683888333353037645802TH5406420.006304F6C3');
+});
+
 test('toSvgString works', function () {
     expect(Builder::dynamicQR()->creditTransfer()->setMerchantIdentifier('004000006579718')->setAmount(200.50)->toSvgString())
         ->toBeString()
