@@ -7,14 +7,14 @@
   "license": "MIT",
   "require": {
     "php": ">=7.4",
-    "bacon/bacon-qr-code": "^2.0",
-    "kittinan/php-crc": "1.0.0"
+    "bacon/bacon-qr-code": "^2.0 || ^3.0",
+    "kittinan/php-crc": "^1.0.0"
   },
   "require-dev": {
-    "php-coveralls/php-coveralls": "^2.5",
-    "pestphp/pest": "^1.22",
-    "phpstan/phpstan": "^1.8",
-    "laravel/pint": "^1.2"
+    "php-coveralls/php-coveralls": "^2.7",
+    "pestphp/pest": "^2.36 || ^3.8 || ^4.0 || ^5.0",
+    "phpstan/phpstan": "^2.1",
+    "laravel/pint": "^1.18"
   },
   "autoload": {
     "psr-4": {
@@ -30,6 +30,6 @@
     "test": "vendor/bin/pest",
     "test-coverage": "vendor/bin/pest --coverage-clover=coverage.xml",
     "test-coverage-upload": "vendor/bin/php-coveralls -v",
-    "phpstan": "vendor/bin/phpstan analyse src tests --level=max"
+    "phpstan": "vendor/bin/phpstan analyse"
   }
 }

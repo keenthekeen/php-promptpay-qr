@@ -79,7 +79,7 @@ class Generator
         $this->merchantType = $merchantType;
     }
 
-    public function setAmount(float $amount = null): self
+    public function setAmount(?float $amount = null): self
     {
         $this->amount = $amount;
 
@@ -115,7 +115,7 @@ class Generator
 
     protected static function getWriter(int $width): Writer
     {
-        $renderer = new ImageRenderer(new RendererStyle($width), new SvgImageBackEnd());
+        $renderer = new ImageRenderer(new RendererStyle($width), new SvgImageBackEnd);
 
         return new Writer($renderer);
     }

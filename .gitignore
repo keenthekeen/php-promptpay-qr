@@ -8,3 +8,5 @@ composer.lock
 /nbproject/
 /build/
 /.idea
+/.phpunit.cache/
+/.phpunit.result.cache
