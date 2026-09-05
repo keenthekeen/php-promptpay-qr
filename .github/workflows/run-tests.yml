@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5.1.0
+        uses: actions/checkout@v7.0.1
 
       - name: Setup PHP
         # Pinned to an exact release: floating tags make it impossible to tell
