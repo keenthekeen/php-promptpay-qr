@@ -34,7 +34,7 @@ jobs:
       - name: Setup PHP
         # Pinned to an exact release: floating tags make it impossible to tell
         # which version a run used (see GHSA-5wxr-w449-57cm).
-        uses: shivammathur/setup-php@2.37.2
+        uses: shivammathur/setup-php@2.40.0
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, iconv, intl, fileinfo
